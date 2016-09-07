@@ -29,6 +29,7 @@ public class FileBasedUsersDaoImplTest extends TestCase {
     }
 
     public void testFind() throws Exception {
+        UsersDao fileBasedUsersDao = new FileBasedUsersDaoImpl();
 
     }
 

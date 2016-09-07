@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
@@ -40,7 +41,8 @@ public class FileBasedUsersDaoImpl implements UsersDao {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
             String line;
-            while((line = reader.readLine()) != null ){
+            while((line = reader.readLine()) != null  ){
+
                 users.add(line);
             }
 
@@ -49,10 +51,29 @@ public class FileBasedUsersDaoImpl implements UsersDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.print(users);
+        String[] usersArr= users.get(0).split(";");
+        for (String user : usersArr) {
+            String[] userData = user.split(":");
+        }
 
-        return  null ;
+        List<User> result = new ArrayList<>();
+
+        for (String info : usersArr) {
+
+            String [] infoParts = info.split(":");
+
+            result.add(  new User( infoParts[0], Integer.parseInt(infoParts[1]) ) );
+        }
+
+        //System.out.println(Arrays.toString(usersArr));
+        System.out.println(result);
+        System.out.println(result.size());
+
+
+            return null;
+
     }
+
 
 
     public void save(User user) {
@@ -85,6 +106,21 @@ public class FileBasedUsersDaoImpl implements UsersDao {
 
 
         public User find(int id) {
+//            List<String> users = new ArrayList<>();
+//            try {
+//                BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
+//                String line;
+//                while((line = reader.readLine()) != null ){
+//                    users.add(line);
+//                }
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+
 
 
         return null ;
