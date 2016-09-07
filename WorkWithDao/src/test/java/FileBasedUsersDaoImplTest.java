@@ -10,7 +10,8 @@ public class FileBasedUsersDaoImplTest extends TestCase {
     }
 
     public void testSave() throws Exception {
-        User user = new User("Nikita", id);
+
+        User user = new User("Nikita", 898);
 
 
         UsersDao fileBasedUsersDao = new FileBasedUsersDaoImpl();
@@ -18,7 +19,7 @@ public class FileBasedUsersDaoImplTest extends TestCase {
 
 
 
-         user = new User("Nikitak", id);
+         user = new User("Nikitak",998);
         fileBasedUsersDao.save(user);
 
     }
