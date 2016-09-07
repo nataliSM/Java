@@ -19,8 +19,12 @@ public class FileBasedUsersDaoImplTest extends TestCase {
 
 
 
-         user = new User("Nikitak",998);
+         user = new User("Nikitak",4122);
         fileBasedUsersDao.save(user);
+
+        user = new User("Natasha",3514);
+        fileBasedUsersDao.save(user);
+
 
     }
 

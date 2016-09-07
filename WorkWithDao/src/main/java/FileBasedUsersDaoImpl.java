@@ -63,8 +63,9 @@ public class FileBasedUsersDaoImpl implements UsersDao {
            FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
 
            String name = user.getName();
+           int id = user.getId();
 
-           String fullString = name + ";";
+           String fullString = name +":" + id + ";";
 
            try{
                Files.write(file.toPath(), fullString.getBytes(Charset.forName("UTF-8")), StandardOpenOption.WRITE,StandardOpenOption.APPEND);
