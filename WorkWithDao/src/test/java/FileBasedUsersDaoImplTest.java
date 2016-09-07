@@ -1,28 +1,28 @@
 import junit.framework.TestCase;
 
+import java.util.List;
+
 /**
  * Created by Natalia on 05.09.16.
  */
 public class FileBasedUsersDaoImplTest extends TestCase {
     public void testFindAll() throws Exception {
     UsersDao fileBasedUsersDao = new FileBasedUsersDaoImpl();
-        fileBasedUsersDao.findAll();
+       List <User> allUsers = fileBasedUsersDao.findAll();
+        for(User usr : allUsers){
+            System.out.println(usr.toString());
+        }
     }
 
     public void testSave() throws Exception {
-
-        User user = new User("Nikita", 898);
-
-
         UsersDao fileBasedUsersDao = new FileBasedUsersDaoImpl();
+        User user = new User("Nikita");
         fileBasedUsersDao.save(user);
 
-
-
-         user = new User("Nikitak",4122);
+        user = new User("Nikitak");
         fileBasedUsersDao.save(user);
 
-        user = new User("Natasha",3514);
+        user = new User("Natasha");
         fileBasedUsersDao.save(user);
 
 
@@ -30,6 +30,7 @@ public class FileBasedUsersDaoImplTest extends TestCase {
 
     public void testFind() throws Exception {
         UsersDao fileBasedUsersDao = new FileBasedUsersDaoImpl();
+        System.out.print(fileBasedUsersDao.find(2));
 
     }
 

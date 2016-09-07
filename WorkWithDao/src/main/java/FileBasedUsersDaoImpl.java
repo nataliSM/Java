@@ -1,3 +1,4 @@
+import javax.jws.soap.SOAPBinding;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -18,14 +19,18 @@ import java.io.IOException;
 public class FileBasedUsersDaoImpl implements UsersDao {
     private File file;
    private static final  String FILENAME = "user.txt";
-
+    private static int maxId;
     public FileBasedUsersDaoImpl() {
+
         initialize();
     }
 
     private void initialize(){
         Path filePath = Paths.get(FILENAME);
         file = new File(filePath.toString());
+        if (maxId == 0){
+            maxId = getMaxId();
+        }
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -37,13 +42,30 @@ public class FileBasedUsersDaoImpl implements UsersDao {
     }
 
     public List<User> findAll() {
+        List<String> users = getAllUserStringList();
+        List <User> userList = new ArrayList<>();
+        for(String user : users ) {
+
+            String[] currentUser = user.split(",");
+            User userNew =  new User();
+            userNew.setName(currentUser[0]);
+            userNew.setId(Integer.valueOf(currentUser[1]));
+            userList.add(userNew);
+        }
+
+
+            return userList;
+
+    }
+
+    private List<String> getAllUserStringList(){
         List<String> users = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
             String line;
             while((line = reader.readLine()) != null  ){
-
                 users.add(line);
+
             }
 
         } catch (FileNotFoundException e) {
@@ -51,78 +73,50 @@ public class FileBasedUsersDaoImpl implements UsersDao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] usersArr= users.get(0).split(";");
-        for (String user : usersArr) {
-            String[] userData = user.split(":");
-        }
-
-        List<User> result = new ArrayList<>();
-
-        for (String info : usersArr) {
-
-            String [] infoParts = info.split(":");
-
-            result.add(  new User( infoParts[0], Integer.parseInt(infoParts[1]) ) );
-        }
-
-        //System.out.println(Arrays.toString(usersArr));
-        System.out.println(result);
-        System.out.println(result.size());
-
-
-            return null;
+        return users;
 
     }
 
-
+    private int getMaxId(){
+        List<String> users = getAllUserStringList();
+        int lastIndex = users.size() -1;
+        if(users.size() == 0){
+            return  0;
+        }
+        String usersString = users.get(lastIndex);
+        String[] userFields = usersString.split(",");
+        return Integer.valueOf(userFields[1]);
+    }
 
     public void save(User user) {
+        String name = user.getName();
+        int id = maxId + 1;
+        String fullString = name +"," + id + "\n";
 
+        try{
+            Files.write(file.toPath(), fullString.getBytes(Charset.forName("UTF-8")), StandardOpenOption.WRITE,StandardOpenOption.APPEND);
+        }catch (IOException e){
+            e.printStackTrace();
 
-       try {
-
-           FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
-
-           String name = user.getName();
-           int id = user.getId();
-
-           String fullString = name +":" + id + ";";
-
-           try{
-               Files.write(file.toPath(), fullString.getBytes(Charset.forName("UTF-8")), StandardOpenOption.WRITE,StandardOpenOption.APPEND);
-
-           }finally {
-
-           }
-
-
-
-
-
-       }catch (IOException e){
-           e.printStackTrace();
-       }
+        }finally {
+            maxId = id;
+        }
     }
 
 
-        public User find(int id) {
-//            List<String> users = new ArrayList<>();
-//            try {
-//                BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
-//                String line;
-//                while((line = reader.readLine()) != null ){
-//                    users.add(line);
-//                }
-//
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+    public User find(int id) {
+        List<String> users = getAllUserStringList();
+        for(String user : users){
+            String[] newUser =user.split(",");
+            if(id == Integer.valueOf(newUser[1])){
+                User foundedUser =new User();
+                foundedUser.setName(newUser[0]);
+                foundedUser.setId(Integer.valueOf(newUser[1]));
+                return foundedUser;
 
+            }
 
-
-
+        }
         return null ;
     }
 }
