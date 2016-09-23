@@ -1,4 +1,7 @@
+import ru.itis.inform.DAO.FileBasedUsersDaoImpl;
+import ru.itis.inform.DAO.UsersDao;
 import junit.framework.TestCase;
+import ru.itis.inform.models.User;
 
 import java.util.List;
 

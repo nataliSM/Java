@@ -1,7 +1,9 @@
+package ru.itis.inform.models;
+
 /**
  * Created by Natalia on 05.09.16.
  */
-public class User implements UserInterface{
+public class User implements UserInterface {
     private String name;
     private int id;
 
@@ -41,9 +43,8 @@ public class User implements UserInterface{
 
     @Override
     public String toString() {
-        return "User{" +
+        return
                 "name='" + name + '\'' +
-                ", id=" + id +
-                '}';
+                ", id=" + id ;
     }
 }

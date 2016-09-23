@@ -1,3 +1,5 @@
+package ru.itis.inform.models;
+
 /**
  * Created by Natalia on 05.09.16.
  */

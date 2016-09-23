@@ -1,4 +1,7 @@
-import javax.jws.soap.SOAPBinding;
+package ru.itis.inform.DAO;
+
+import ru.itis.inform.models.User;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -6,11 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+
 
 
 /**
@@ -18,7 +20,7 @@ import java.io.IOException;
  */
 public class FileBasedUsersDaoImpl implements UsersDao {
     private File file;
-   private static final  String FILENAME = "user.txt";
+   private static final  String FILENAME = "/Users/Natalia/spiridonova/Java/WorkWithDao/user.txt";
     private static int maxId;
     public FileBasedUsersDaoImpl() {
 
