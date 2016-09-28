@@ -1,5 +1,6 @@
 package ru.itis.inform.servlet;
 
+import ru.itis.inform.DAO.DatabaseBasedUserDao;
 import ru.itis.inform.DAO.FileBasedUsersDaoImpl;
 import ru.itis.inform.DAO.UsersDao;
 import ru.itis.inform.models.User;
@@ -20,7 +21,8 @@ import java.util.List;
 public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         {
-            UsersDao dao = new FileBasedUsersDaoImpl();
+            //UsersDao dao = new FileBasedUsersDaoImpl();
+            UsersDao dao = new DatabaseBasedUserDao();
             List<User> userList = dao.findAll();
             req.setAttribute("userList", userList);
 
