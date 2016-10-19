@@ -9,10 +9,10 @@ public class User implements UserInterface {
     private String name;
     private int id;
 
-    public User(Integer id, String name, Integer age, String city)
+    public User(String name, Integer age, String city)
     {
         this.name = name;
-        this.id = id;
+        //this.id = id;
         this.city = city;
         this.age = age;
 

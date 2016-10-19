@@ -12,7 +12,7 @@
 <%-- Using JSTL forEach and out to loop a list and display items in table --%>
 <table>
     <tbody>
-    <c:forEach var="user" items="${userList">
+    <c:forEach var="user" items="${requestScope.userList}">
         <p>${user}</p>
     </c:forEach>
     </tbody>

@@ -67,9 +67,9 @@ public class DatabaseBasedUserDao implements UsersDao {
                 String name  = result.getString("name");
                 Integer age  = result.getInt("age");
                 String city  = result.getString("city");
-                User user    = new User(id, name,age,city);
+                //User user    = new User(id, name,age,city);
 
-                usersListFromDataBase.add(user);
+                //usersListFromDataBase.add(user);
 
 
             }
@@ -82,9 +82,36 @@ public class DatabaseBasedUserDao implements UsersDao {
         return usersListFromDataBase;
     }
 
-    @Override
-    public void save(User user) {
+   
 
+
+    @Override
+    public long save(User user) {
+        int id = -1;
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ResultSet result = null;
+        try {
+            id = statement.executeUpdate("INSERT  INTO users( name, age, city ) VALUES ('"+ user.getName() +  "', "+ user.getAge() +", '"+ user.getCity() +"');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return generatedKeys.getLong(1);
+            }
+            else {
+                throw new SQLException("Creating user failed, no ID obtained.");
+            }
+        }catch (SQLException ex){
+
+        }
+            return id;
     }
     
 

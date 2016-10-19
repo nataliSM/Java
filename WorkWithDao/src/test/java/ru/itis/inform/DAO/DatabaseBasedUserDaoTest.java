@@ -14,9 +14,8 @@ public class DatabaseBasedUserDaoTest extends TestCase {
 
     public void testSave() throws Exception {
         DatabaseBasedUserDao dao = new DatabaseBasedUserDao();
-        User user = new User(20,"Pasha",32,"Kazan");
-        dao.save(user);
-        System.out.println(dao.findAll());
+        User user = new User("Natasha", 19, "kazan");
+        System.out.println(dao.save(user));
 
     }
 

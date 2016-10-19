@@ -90,7 +90,7 @@ public class FileBasedUsersDaoImpl implements UsersDao {
         return Integer.valueOf(userFields[1]);
     }
 
-    public void save(User user) {
+    public long save(User user) {
         String name = user.getName();
         int id = maxId + 1;
         String fullString = name +"," + id + "\n";
@@ -103,6 +103,7 @@ public class FileBasedUsersDaoImpl implements UsersDao {
         }finally {
             maxId = id;
         }
+         return 0;
     }
 
 
