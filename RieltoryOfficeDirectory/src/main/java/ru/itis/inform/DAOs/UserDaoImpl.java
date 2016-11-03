@@ -28,19 +28,10 @@ public class UserDaoImpl implements UserDAO{
 
         try {
             preparedStatement = connection.prepareStatement(
-                    "SELECT FROM users WHERE ( username = ? )");
-            preparedStatement.setString(1,username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next())
-            {
-                String name = resultSet.getString("username");
-                String password = resultSet.getString("password");
-                int id = resultSet.getInt("id");
-                User user = new User(name, password);
-                return user;
-
-            }
+                    "SELECT * FROM users WHERE username = ?");
+            preparedStatement.setString(1, username);
+            User user =findUserWithPrepareStatement(preparedStatement);
+            return user;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -92,7 +83,52 @@ public class UserDaoImpl implements UserDAO{
 
         }
 
-        public String getTokenFromUser(int id) {
+    @Override
+    public User findUser(int id) {
+
+        boolean isFind = false;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM users WHERE ( id = ? )");
+            preparedStatement.setInt(1,id);
+
+            User user = findUserWithPrepareStatement(preparedStatement);
+            return user;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private User findUserWithPrepareStatement(PreparedStatement preparedStatement)
+    {
+
+        ResultSet resultSet = null;
+        try {
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+            {
+                String name = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                int id = resultSet.getInt("id");
+                String token = resultSet.getString("user_token");
+                User user = new User(name, password);
+                user.setToken(token);
+                user.setId(id);
+                return user;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+       return  null;
+    }
+
+    public String getTokenFromUser(int id) {
 
             String sql = "SELECT user_token FROM users WHERE id = ?;";
 

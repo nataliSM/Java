@@ -28,4 +28,9 @@ public class ServiceFactory {
     public RegistrationService getRegistrationService(){
         return new RegistrationServiceImpl();
     }
+
+    public VerifyService getVerifyService(){
+        return  new VerifyServiceImpl();
+    }
 }
+

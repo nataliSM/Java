@@ -1,6 +1,7 @@
 package ru.itis.inform.services;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import ru.itis.inform.DAOFactory;
 import ru.itis.inform.DAOs.UserDAO;
 import ru.itis.inform.DAOs.UserDaoImpl;
 import ru.itis.inform.models.User;
@@ -19,7 +20,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     public void registrateUser(String username, String password) {
         String hexPassword = md5Apache(password);
         User user = new User(username, hexPassword);
-        UserDAO userDAO = new UserDaoImpl();
+        UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
         userDAO.save(user);
     }
 }

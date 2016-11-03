@@ -20,8 +20,9 @@ public class UserDaoImplTest {
 
     @Test
     public void findUser() throws Exception {
-        User user = new User("Natasha", "123");
-        boolean actual = userDAO.findUser(user);
+        User user = new User("Nat", "123");
+        user = userDAO.findUser("acacuce");
+        boolean actual = user == null ? false : true;
         assertTrue(actual);
     }
 

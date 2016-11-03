@@ -2,6 +2,7 @@ package ru.itis.inform.services;
 
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.apache.commons.codec.digest.DigestUtils;
+import ru.itis.inform.DAOFactory;
 import ru.itis.inform.DAOs.UserDAO;
 import ru.itis.inform.DAOs.UserDaoImpl;
 import ru.itis.inform.models.User;
@@ -18,6 +19,8 @@ import java.util.Random;
 public class LoginServiceImpl implements LoginService
 {
     private String currentToken;
+    private ArrayList<Cookie> cookies;
+    private User currentUser;
 
     public static String md5Apache(String password) {
         String md5Hex = DigestUtils.md5Hex(password);
@@ -31,7 +34,8 @@ public class LoginServiceImpl implements LoginService
         User user = userDAO.findUser(username);
 
         if (user != null) {
-            generateToken();
+            this.currentUser = user;
+            generateCookiesForUser(user);
             return true;
         }
         return false;
@@ -40,18 +44,29 @@ public class LoginServiceImpl implements LoginService
     }
 
     @Override
-    public ArrayList<Cookie> generateCookies() {
-        if (this.currentToken == null)
-        {
-            throw new IllegalArgumentException();
-        }
-        Cookie cookie = new Cookie(this.currentToken);
-        cookie.setMaxAge(30*60);
-        ArrayList<Cookie>  cookieArrayList = new ArrayList<Cookie>();
-        cookieArrayList.add(cookie);
+    public  ArrayList<Cookie> getCookies() {
+
+        return this.cookies;
     }
 
-    private void generateToken ()
+    public void generateCookiesForUser(User currentUser)
+    {
+        String idString = String.valueOf(currentUser.getId());
+        String tokenString = generateToken();
+        Cookie idCookie = new Cookie("id", idString);
+        idCookie.setMaxAge(30*60);
+        Cookie tokenCookie = new Cookie("user_token", tokenString);
+        tokenCookie.setMaxAge(30*60);
+
+        ArrayList<Cookie> cookies= new ArrayList<>();
+        cookies.add(idCookie);
+        cookies.add(tokenCookie);
+
+        this.cookies = cookies;
+
+    }
+
+    private String generateToken ()
     {
         Random random = new SecureRandom();
         char[] result = new char[32];
@@ -62,6 +77,14 @@ public class LoginServiceImpl implements LoginService
             result[i] = characterSet[randomCharIndex];
         }
         this.currentToken = new String(result);
+        saveToken(currentToken);
+        return this.currentToken;
+    }
+
+    private void saveToken(String currentToken){
+        UserDAO userDao = DAOFactory.getInstance().getUserDAO();
+        userDao.saveTokenForUser(currentUser.getId() ,currentToken);
+
     }
 
 

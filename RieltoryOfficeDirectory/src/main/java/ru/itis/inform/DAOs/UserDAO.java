@@ -8,4 +8,6 @@ public interface UserDAO {
 
     public User findUser(String username);
     public void save (User user);
+    public void saveTokenForUser(int id, String token);
+    User findUser (int id);
 }

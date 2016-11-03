@@ -1,5 +1,7 @@
 package ru.itis.inform.services;
 
+import ru.itis.inform.models.User;
+
 import javax.servlet.http.Cookie;
 import java.util.ArrayList;
 
@@ -8,5 +10,7 @@ import java.util.ArrayList;
  */
 public interface LoginService {
     boolean verifyUser(String username, String password);
-    ArrayList<Cookie> generateCookies();
+    void generateCookiesForUser(User user);
+    ArrayList<Cookie> getCookies();
+
 }
