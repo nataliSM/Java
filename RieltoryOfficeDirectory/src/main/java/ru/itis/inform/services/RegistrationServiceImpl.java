@@ -1,9 +1,8 @@
 package ru.itis.inform.services;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import ru.itis.inform.DAOFactory;
+import ru.itis.inform.factories.DAOFactory;
 import ru.itis.inform.DAOs.UserDAO;
-import ru.itis.inform.DAOs.UserDaoImpl;
 import ru.itis.inform.models.User;
 
 /**

@@ -1,4 +1,4 @@
-package ru.itis.inform;
+package ru.itis.inform.factories;
 
 import ru.itis.inform.services.*;
 
@@ -25,12 +25,21 @@ public class ServiceFactory {
         return new DataBaseConnectionServicesImpl();
     }
 
+    public DataBaseConnectionServices getRieltoryDataBaseConnection(){
+        return new RieltoryDataBaseConnection();
+    }
+
     public RegistrationService getRegistrationService(){
         return new RegistrationServiceImpl();
     }
 
     public VerifyService getVerifyService(){
         return  new VerifyServiceImpl();
+    }
+
+    public OfferseGeneratorService getOfferseGeneratorService ()
+    {
+        return new OfferceGeneratorServicesImpl();
     }
 }
 

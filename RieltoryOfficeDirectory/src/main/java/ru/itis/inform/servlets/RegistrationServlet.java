@@ -1,7 +1,6 @@
 package ru.itis.inform.servlets;
 
-import ru.itis.inform.ServiceFactory;
-import ru.itis.inform.services.LoginService;
+import ru.itis.inform.factories.ServiceFactory;
 import ru.itis.inform.services.RegistrationService;
 
 import javax.servlet.ServletException;

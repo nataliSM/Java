@@ -1,4 +1,4 @@
-package ru.itis.inform;
+package ru.itis.inform.factories;
 
 import ru.itis.inform.DAOs.UserDAO;
 import ru.itis.inform.DAOs.UserDaoImpl;

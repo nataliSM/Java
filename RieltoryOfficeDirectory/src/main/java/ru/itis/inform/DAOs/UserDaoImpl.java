@@ -1,13 +1,11 @@
 package ru.itis.inform.DAOs;
 
 
-import ru.itis.inform.ServiceFactory;
+import ru.itis.inform.factories.ServiceFactory;
 import ru.itis.inform.models.User;
 import ru.itis.inform.services.DataBaseConnectionServices;
-import ru.itis.inform.services.DataBaseConnectionServicesImpl;
 
 
-import javax.jws.soap.SOAPBinding;
 import java.sql.*;
 
 
