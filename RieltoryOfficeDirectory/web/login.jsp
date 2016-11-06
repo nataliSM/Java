@@ -8,24 +8,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/loginStyle.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <title>LoginServlet</title>
 </head>
 <body>
 
-<center>
-<form action="./login" method="post">
+<div id="login_container" class="container">
 
-  Enter username :  <input type="text" name="username" size=15 type="text" /> <br>
-    Enter password :  <input type="password" name="password" size=15 type="text" /> <br>
-    <input type="submit" value = "Login">
-    </table>
-</form>
+    <form id="login_form" class="form-signin" role="form" action="./login" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" name="username" placeholder="User Name" required autofocus>
+        <input type="password" class="form-control" name="password" placeholder="Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Login</button>
+    </form>
+
+    <form id="registration_form" action="./registration" method="get">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Registration">Registration</button>
+        <%--<input type="submit" value="Registration">--%>
+    </form>
+</div>
 
 
-<form action="./registration" method="get">
-    <input type="submit" value="Registration">
-</form>
-</center>
+
 
 
 
