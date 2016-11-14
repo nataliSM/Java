@@ -43,7 +43,7 @@ public class Main extends JFrame {
         JMenu aboutMenu = new JMenu("About");
         aboutMenu.setFont(font);
 
-        JMenuItem aboutItem = new JMenu("About");
+        JMenuItem aboutItem = new JMenuItem("About");
         aboutItem.setFont(font);
         aboutItem.addActionListener(new ActionListener() {
             @Override
